@@ -1,7 +1,6 @@
 .idea/*
 __pycache__/*
 
-
 # Created by https://www.gitignore.io/api/venv,pycharm
 
 ### PyCharm ###
@@ -83,5 +82,9 @@ Scripts/
 # Shared
 pyvenv.cfg
 
+# virtualenv
+.venv
+venv/
+ENV/
 
 # End of https://www.gitignore.io/api/venv,pycharm
