@@ -1,8 +1,8 @@
 import data_manager
 from flask import Flask, render_template
 
-
 app = Flask(__name__)
+
 
 @app.route('/')
 def index():
@@ -15,7 +15,6 @@ def mentor_names():
     mentor_names = data_manager.get_mentor_names_by_first_name('László')
 
     return render_template('mentor_names.html', mentor_names=mentor_names)
-
 
 
 if __name__ == '__main__':
