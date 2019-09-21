@@ -41,3 +41,15 @@ def get_applicant_info(cursor, applicant_name):
                    {'applicant_name': applicant_name})
     applicant_info = cursor.fetchall()
     return applicant_info
+
+
+@database_common.connection_handler
+def get_applicant_info_by_email(cursor, email):
+    pattern = f'%{email}%'
+    cursor.execute("""
+                    SELECT * FROM applicants
+                    WHERE email LIKE %(email)s
+                   """,
+                   {'email': pattern})
+    applicant_info = cursor.fetchall()
+    return applicant_info

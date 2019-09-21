@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <form action="" method="post">
+        {% if first_name %}
+        <div>
+            <label for="first_name">First name:</label><br>
+            <input id="first_name" name="first_name" size="25">
+        </div>
+        {% elif email %}
+        <div>
+            <label for="email">Email (can be incomplete/partial):</label><br>
+            <input id="email" name="email" size="25">
+        </div>
+        {% endif %}
+        <div>
+            <input type="submit" value="search">
+        </div>
+    </form>
+
+    {% include 'footer.html' %}
+{% endblock %}
