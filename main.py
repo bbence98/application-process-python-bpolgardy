@@ -1,5 +1,5 @@
 import data_manager
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
 
@@ -58,7 +58,9 @@ def add_new_applicant():
     if request.method == 'GET':
         return render_template('add_applicant.html')
     else:
-        return
+        user_input = request.form.to_dict()
+        data_manager.append_to_database('applicants', user_input)
+        return redirect(url_for('index'))
 
 
 if __name__ == '__main__':

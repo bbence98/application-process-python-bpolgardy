@@ -1,4 +1,5 @@
 import database_common
+from psycopg2 import sql
 
 
 @database_common.connection_handler
@@ -53,3 +54,19 @@ def get_applicant_info_by_email(cursor, email):
                    {'email': pattern})
     applicant_info = cursor.fetchall()
     return applicant_info
+
+
+@database_common.connection_handler
+def append_to_database(cursor, table_name, user_input):
+    print(type(user_input))
+    cursor.execute(
+        sql.SQL("""INSERT INTO {table} (first_name, last_name, phone_number, email, application_code)
+                   VALUES (%s, %s, %s, %s, %s)
+                """)
+            .format(table=sql.Identifier(table_name)),
+        [user_input.get('first_name'),
+         user_input.get('last_name'),
+         user_input.get('phone_number'),
+         user_input.get('email'),
+         user_input.get('application_code')]
+    )

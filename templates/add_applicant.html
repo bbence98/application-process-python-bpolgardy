@@ -1,10 +1,32 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "layout.html" %}
 
-</body>
-</html>
+{% block content %}
+
+    <form action="" method="post">
+        <div>
+            <label for="first_name">First name:</label><br>
+            <input id="first_name" name="first_name" size="25">
+        </div>
+        <div>
+            <label for="last_name">First name:</label><br>
+            <input id="last_name" name="last_name" size="25">
+        </div>
+        <div>
+            <label for="phone_number">Phone number:</label><br>
+            <input id="phone_number" name="phone_number" size="25">
+        </div>
+        <div>
+            <label for="email">Email:</label><br>
+            <input id="email" name="email" size="25">
+        </div>
+        <div>
+            <label for="application_code">Application code:</label><br>
+            <input id="application_code" name="application_code" size="25">
+        </div>
+        <div>
+            <input type="submit" value="Add new applicant">
+        </div>
+    </form>
+
+    {% include 'footer.html' %}
+{% endblock %}
