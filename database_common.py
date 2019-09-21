@@ -17,12 +17,7 @@ def get_connection_string():
 
     if env_variables_defined:
         # this string describes all info for psycopg2 to connect to the database
-        return 'postgresql://{user_name}:{password}@{host}/{database_name}'.format(
-            user_name=user_name,
-            password=password,
-            host=host,
-            database_name=database_name
-        )
+        return f'postgresql://{user_name}:{password}@{host}/{database_name}'
     else:
         raise KeyError('Some necessary environment variable(s) are not defined')
 
