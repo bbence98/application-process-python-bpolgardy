@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <div class="applicants">
+        {% for applicant in applicant_info %}
+            {{ applicant.first_name + ' ' + applicant.last_name }}<br>
+            {{ applicant.phone_number }}<br>
+        {% endfor%}
+    </div>
+
+    {% include 'footer.html' %}
+{% endblock %}
