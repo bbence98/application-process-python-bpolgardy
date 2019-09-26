@@ -70,3 +70,4 @@ def append_to_database(cursor, table_name, user_input):
          user_input.get('email'),
          user_input.get('application_code')]
     )
+

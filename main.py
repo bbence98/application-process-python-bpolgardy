@@ -62,6 +62,10 @@ def add_new_applicant():
         data_manager.append_to_database('applicants', user_input)
         return redirect(url_for('index'))
 
+@app.route('/Answers')
+def show_answers():
+    return render_template('Answers.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
