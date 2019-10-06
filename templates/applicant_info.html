@@ -4,10 +4,11 @@
 
     <div class="applicants">
         {% for applicant in applicant_info %}
-            {{ applicant.first_name + ' ' + applicant.last_name }}<br>
-            {{ applicant.phone_number }}<br><br>
+            <a href="{{ url_for("edit_applicant", applicant_id = applicant.id ) }}">{{ applicant.first_name + " " + applicant.last_name }}</a><br>
+            {{ applicant.phone_number }}<br>
+            {{ applicant.email }}<br>
+            {{ applicant.application_code }}<br><br>
         {% endfor%}
     </div>
-
     {% include 'footer.html' %}
 {% endblock %}

@@ -16,7 +16,7 @@ def get_mentor_names_by_first_name(cursor, first_name):
 @database_common.connection_handler
 def get_mentor_names(cursor):
     cursor.execute("""
-                    SELECT first_name, last_name FROM mentors
+                    SELECT first_name, last_name FROM mentors;
                    """)
     names = cursor.fetchall()
     return names
@@ -26,7 +26,7 @@ def get_mentor_names(cursor):
 def get_mentor_nicknames(cursor, city):
     cursor.execute("""
                     SELECT nick_name FROM mentors
-                    WHERE city = %(city)s
+                    WHERE city = %(city)s;
                    """,
                    {'city': city})
     nicknames = cursor.fetchall()
@@ -37,7 +37,7 @@ def get_mentor_nicknames(cursor, city):
 def get_applicant_info(cursor, applicant_name):
     cursor.execute("""
                     SELECT * FROM applicants
-                    WHERE first_name = %(applicant_name)s
+                    WHERE first_name = %(applicant_name)s;
                    """,
                    {'applicant_name': applicant_name})
     applicant_info = cursor.fetchall()
@@ -49,11 +49,30 @@ def get_applicant_info_by_email(cursor, email):
     pattern = f'%{email}%'
     cursor.execute("""
                     SELECT * FROM applicants
-                    WHERE email LIKE %(email)s
+                    WHERE email LIKE %(email)s;
                    """,
                    {'email': pattern})
     applicant_info = cursor.fetchall()
+    return applicant_info\
+
+@database_common.connection_handler
+def get_applicant_info_by_id(cursor, applicant_id):
+    cursor.execute("""
+                    SELECT * FROM applicants
+                    WHERE id = %(applicant_id)s;
+                   """,
+                   {'applicant_id': applicant_id})
+    applicant_info = cursor.fetchall()
     return applicant_info
+
+@database_common.connection_handler
+def list_applicants(cursor):
+    cursor.execute("""
+                    SELECT * FROM applicants
+                    """)
+    applicant_info = cursor.fetchall()
+    return applicant_info
+
 
 
 @database_common.connection_handler
@@ -61,13 +80,29 @@ def append_to_database(cursor, table_name, user_input):
     print(type(user_input))
     cursor.execute(
         sql.SQL("""INSERT INTO {table} (first_name, last_name, phone_number, email, application_code)
-                   VALUES (%s, %s, %s, %s, %s)
+                   VALUES (%s, %s, %s, %s, %s);
                 """)
             .format(table=sql.Identifier(table_name)),
         [user_input.get('first_name'),
          user_input.get('last_name'),
          user_input.get('phone_number'),
          user_input.get('email'),
-         user_input.get('application_code')]
-    )
+         user_input.get('application_code')])
+
+@database_common.connection_handler
+def update_applicant(cursor, applicant_id, user_input):
+    cursor.execute("""
+                    UPDATE applicants SET first_name = %(first_name)s,
+                                        last_name = %(last_name)s,
+                                        phone_number = %(phone_number)s,
+                                        email = %(email)s,
+                                        application_code = %(application_code)s
+                    WHERE id = %(applicant_id)s
+                    """,
+                   {'applicant_id' : applicant_id,
+                    'first_name' : user_input[0],
+                    'last_name' : user_input[1],
+                    'phone_number' : user_input[2],
+                    'email' : user_input[3],
+                    'application_code' : user_input[4]})
 
