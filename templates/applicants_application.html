@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    <div class="applicants-application">
+        {% for data in applicants_dates %}
+            {{ data.first_name }}
+            {{ data.application_code }}
+            {{ data.creation_date }}<br><br>
+        {% endfor %}
+    </div>
+    {% include 'footer.html' %}
+{% endblock %}

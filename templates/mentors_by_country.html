@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <div class="mentors-by-country">
+        {% for data in result %}
+            {{ data.country }}
+            {{ data.count }}<br>
+        {% endfor%}
+    </div>
+    {% include 'footer.html' %}
+{% endblock %}

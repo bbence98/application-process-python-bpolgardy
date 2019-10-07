@@ -106,3 +106,75 @@ def update_applicant(cursor, applicant_id, user_input):
                     'email' : user_input[3],
                     'application_code' : user_input[4]})
 
+@database_common.connection_handler
+def schools_with_mentors(cursor):
+    cursor.execute("""
+                    SELECT mentors.first_name, mentors.last_name, schools.name, schools.country 
+                        FROM mentors
+                    INNER JOIN schools ON mentors.city = schools.city
+                    ORDER BY mentors.id
+                    """)
+    result = cursor.fetchall()
+    return result\
+
+
+@database_common.connection_handler
+def schools_even_without_mentors(cursor):
+    cursor.execute("""
+                    SELECT mentors.first_name, mentors.last_name, schools.name, schools.country 
+                        FROM mentors
+                    RIGHT JOIN schools ON mentors.city = schools.city
+                    ORDER BY mentors.id
+                    """)
+    result = cursor.fetchall()
+    return result
+
+
+@database_common.connection_handler
+def mentors_by_country(cursor):
+    cursor.execute("""
+                    SELECT schools.country, COUNT(*) FROM mentors
+                    JOIN schools ON schools.city = mentors.city
+                    GROUP BY schools.country
+                    ORDER BY    schools.country
+                    """)
+    result = cursor.fetchall()
+    return result
+
+
+@database_common.connection_handler
+def contacts_by_schools(cursor):
+    cursor.execute("""
+                    SELECT s.name, m.first_name, m.last_name FROM mentors AS m 
+                    JOIN schools s on m.id = s.contact_person;                    
+                    """)
+    result = cursor.fetchall()
+    return result
+
+
+@database_common.connection_handler
+def applicants_application(cursor):
+    cursor.execute("""
+                    SELECT a.first_name, a.application_code, a_m.creation_date 
+                        FROM applicants AS a 
+                    JOIN applicants_mentors a_m ON a.id = a_m.applicant_id
+                    WHERE a_m.creation_date >= '2016-01-01'
+                    ORDER BY a_m.creation_date DESC;
+                    """)
+    result = cursor.fetchall()
+    return result
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

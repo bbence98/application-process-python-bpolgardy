@@ -80,5 +80,34 @@ def edit_applicant(applicant_id):
     return render_template('edit_applicant.html', applicant_info=applicant_info)
 
 
+@app.route('/mentors')
+def show_schools_with_mentors():
+    result = data_manager.schools_with_mentors()
+    return render_template('mentors and schools.html', result=result)
+
+@app.route('/all-school')
+def show_all_schools_even_without_mentors():
+    result = data_manager.schools_even_without_mentors()
+    return render_template('mentors and schools.html', result=result)
+
+
+@app.route('/mentors-by-country')
+def mentors_by_country():
+    result = data_manager.mentors_by_country()
+    return render_template('mentors_by_country.html', result=result)
+
+
+@app.route('/contacts')
+def lists_contacts_per_school():
+    contacts_school = data_manager.contacts_by_schools()
+    return render_template('contacts schools.html', contacts_school=contacts_school)
+
+
+@app.route('/applicant')
+def applicants_date_of_application():
+    applicants_dates = data_manager.applicants_application()
+    return render_template('applicants_application.html', applicants_dates=applicants_dates)
+
+
 if __name__ == '__main__':
     app.run(debug=True)

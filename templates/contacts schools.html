@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+    <div class="contacts-schools">
+        {% for data in contacts_school %}
+            {{ data.name + " : " }}
+            {{ data. first_name + " " + data.last_name }}<br><br>
+        {% endfor %}
+    </div>
+    {% include 'footer.html' %}
+{% endblock %}
