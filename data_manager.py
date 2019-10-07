@@ -155,11 +155,24 @@ def contacts_by_schools(cursor):
 @database_common.connection_handler
 def applicants_application(cursor):
     cursor.execute("""
-                    SELECT a.first_name, a.application_code, a_m.creation_date 
+                    SELECT a.first_name, a.application_code, a_m.creation_date
                         FROM applicants AS a 
                     JOIN applicants_mentors a_m ON a.id = a_m.applicant_id
                     WHERE a_m.creation_date >= '2016-01-01'
                     ORDER BY a_m.creation_date DESC;
+                    """)
+    result = cursor.fetchall()
+    return result\
+
+
+@database_common.connection_handler
+def applicants_with_mentors(cursor):
+    cursor.execute("""
+                    SELECT a.first_name, a.application_code, m.first_name AS mentor_first_name,
+                        m.last_name FROM applicants AS a 
+                    JOIN applicants_mentors a_m ON a.id = a_m.applicant_id
+                    JOIN mentors m on a_m.mentor_id = m.id
+                    ORDER BY a_m.applicant_id
                     """)
     result = cursor.fetchall()
     return result

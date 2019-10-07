@@ -109,5 +109,11 @@ def applicants_date_of_application():
     return render_template('applicants_application.html', applicants_dates=applicants_dates)
 
 
+@app.route('/applicants-and-mentors')
+def applicants_and_mentors():
+    applicants_mentors = data_manager.applicants_with_mentors()
+    return render_template('applicants_mentors.html', applicants_mentors=applicants_mentors)
+
+
 if __name__ == '__main__':
     app.run(debug=True)

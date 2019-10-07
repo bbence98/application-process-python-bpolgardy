@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="">
+        {% for data in applicants_mentors %}
+            {{ data.first_name }}
+            {{ data.application_code }}
+            {{ data.mentor_first_name + " " + data.last_name if data.mentor_first_name else "No data" }}<br><br>
+        {% endfor %}
+    </div>
+    {% include 'footer.html' %}
+{% endblock %}
